@@ -27,17 +27,15 @@ const sendEmail = async (subject, email, context) => {
 				Data: subject,
 			},
 		},
-		Source: "MethodFit Scheduler <info@methodfit.net>",
+		Source: "MethodFit Scheduler <info@methodfit.com>",
 	};
-	// Create the promise and SES service object
+
 	try {
 		const result = await ses.sendEmail(params).promise();
-
-		// Handle promise's fulfilled/rejected states
-
-		console.log(result.MessageId);
+		console.log(`${subject} sent successfully: ${result.MessageId}`);
 		context.done(null, "Success");
 	} catch (err) {
+		console.error(`${subject} was not sent successfully`);
 		console.error(err, err.stack);
 		context.done(null, "Failed");
 	}

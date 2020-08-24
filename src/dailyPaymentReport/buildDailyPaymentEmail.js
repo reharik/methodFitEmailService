@@ -9,8 +9,7 @@
 
 const moment = require("moment");
 
-const buildWeeklyPaymentEmail = async (payments) => {
-	const root = `
+const root = `
 <table style="width:100%">
 	<tr style="font-weight:bold;">
 		<td>Purchase Date</td>
@@ -20,7 +19,7 @@ const buildWeeklyPaymentEmail = async (payments) => {
 	</tr>
 `;
 
-	const buildPaymentRow = (payment, type) => `
+const buildPaymentRow = (payment, type) => `
 	<tr>
 		<td>${type}</td>
 		<td>${payment[type + "Price"]}</td>
@@ -29,30 +28,30 @@ const buildWeeklyPaymentEmail = async (payments) => {
 	</tr>
 `;
 
-	const buildItemRows = (payment) => {
-		let result = ``;
-		if (payment.FullHour) {
-			result += buildPaymentRow(payment, "FullHour");
-		}
-		if (payment.FullHourTenPack) {
-			result += buildPaymentRow(payment, "FullHourTenPack");
-		}
-		if (payment.HalfHour) {
-			result += buildPaymentRow(payment, "HalfHour");
-		}
-		if (payment.HalfHourTenPack) {
-			result += buildPaymentRow(payment, "HalfHourTenPack");
-		}
-		if (payment.Pair) {
-			result += buildPaymentRow(payment, "Pair");
-		}
-		if (payment.PairTenPack) {
-			result += buildPaymentRow(payment, "PairTenPack");
-		}
-		return result;
-	};
+const buildItemRows = (payment) => {
+	let result = ``;
+	if (payment.FullHour) {
+		result += buildPaymentRow(payment, "FullHour");
+	}
+	if (payment.FullHourTenPack) {
+		result += buildPaymentRow(payment, "FullHourTenPack");
+	}
+	if (payment.HalfHour) {
+		result += buildPaymentRow(payment, "HalfHour");
+	}
+	if (payment.HalfHourTenPack) {
+		result += buildPaymentRow(payment, "HalfHourTenPack");
+	}
+	if (payment.Pair) {
+		result += buildPaymentRow(payment, "Pair");
+	}
+	if (payment.PairTenPack) {
+		result += buildPaymentRow(payment, "PairTenPack");
+	}
+	return result;
+};
 
-	const buildItemList = (payment) => `
+const buildItemList = (payment) => `
 	<table style="width:100%; padding-left:15px">
 		<tr style="font-style:italic;">
 			<td style="border-bottom:1px solid black">Item</td>
@@ -65,7 +64,7 @@ const buildWeeklyPaymentEmail = async (payments) => {
 	</table>
 `;
 
-	const buildPayment = (payment) => `
+const buildPayment = (payment) => `
 	<tr>
 		<td  style="padding:5px;border-top: 1px solid black;border-left: 1px solid black; border-bottom: 1px solid black;">${moment(
 			payment.CreatedDate
@@ -91,19 +90,21 @@ const buildWeeklyPaymentEmail = async (payments) => {
 		</td>
 	</tr>
 `;
+
+const buildWeeklyPaymentEmail = async (payments) => {
 	let html;
 	if (payments.length === 0) {
 		html = "No payments entered on this day";
 	} else {
 		html = root;
 		payments.forEach((x) => (html += buildPayment(x)));
-		html += `
-</table>
-`;
+		html += `</table>`;
 	}
+
 	const email = `<b>Daily payment report for ${moment().format(
 		"MMM Do YYYY"
 	)}</b><br /><br />${html}`;
+	console.log("Daily Payment Email successfully built");
 	return email;
 };
 
