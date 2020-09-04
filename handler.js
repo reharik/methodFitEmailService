@@ -12,8 +12,7 @@ const weeklyAbsenteeReport = require("./src/weeklyAbsenteeReport/weeklyAbsenteeR
 const managerCommissionReport = require("./src/managerCommissionReport/managerCommissionReport");
 
 module.exports.dailyPaymentReport = async (event, context) => {
-	const result = await dailyPaymentReport(context);
-	console.log(result);
+	await dailyPaymentReport(event, context);
 	return {
 		statusCode: 200,
 		body: result, //;JSON.stringify(result, null, 2),
@@ -21,8 +20,7 @@ module.exports.dailyPaymentReport = async (event, context) => {
 };
 
 module.exports.weeklyAbsenteeReport = async (event, context) => {
-	const result = await weeklyAbsenteeReport(context);
-	console.log(result);
+	await weeklyAbsenteeReport(event, context);
 	return {
 		statusCode: 200,
 		body: result, //;JSON.stringify(result, null, 2),
@@ -30,8 +28,7 @@ module.exports.weeklyAbsenteeReport = async (event, context) => {
 };
 
 module.exports.managerCommissionReport = async (event, context) => {
-	const result = await managerCommissionReport(event, context);
-	console.log(result);
+	await managerCommissionReport(event, context);
 	return {
 		statusCode: 200,
 		body: result, //;JSON.stringify(result, null, 2),

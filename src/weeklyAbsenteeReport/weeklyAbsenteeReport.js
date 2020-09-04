@@ -11,12 +11,13 @@ const sendEmail = require("./../sendEmail");
 const buildWeeklyAbsenteeEmail = require("./buildweeklyAbsenteeEmail");
 const moment = require("moment");
 
-const weeklyAbsenteeReport = async (context) => {
-	const data = await buildWeeklyAbsenteeList();
+const weeklyAbsenteeReport = async (event, context) => {
+	const data = await buildWeeklyAbsenteeList(event);
 	const email = await buildWeeklyAbsenteeEmail(data);
 	await sendEmail(
 		`${moment().format("MMM Do YYYY")} Client Absentee Report`,
 		email,
+		event,
 		context
 	);
 };

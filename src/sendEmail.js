@@ -10,10 +10,11 @@ var moment = require("moment");
 var aws = require("aws-sdk");
 var ses = new aws.SES({ region: "us-east-2" });
 
-const sendEmail = async (subject, email, context) => {
+const sendEmail = async (subject, email, event, context) => {
+	const overrideEmail = event.emailAddress;
 	const params = {
 		Destination: {
-			ToAddresses: [process.env.EMAIL_ADDRESS],
+			ToAddresses: [overrideEmail || process.env.EMAIL_ADDRESS],
 		},
 		Message: {
 			Body: {

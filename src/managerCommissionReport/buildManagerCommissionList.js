@@ -5,27 +5,35 @@
  * Author: Raif
  *
  * Copyright (c) 2020 TaskRabbit, Inc
- */
+ */ const sql = require("mssql");
 
-const sql = require("mssql");
-
-const generateSqlStatement = (locationIds) => `select t.firstName,
+const generateSqlStatement = (locationIds) => `select 
+t.firstName,
 t.lastName,
 s.appointmentType,
 s.clientId,
-s.cost as clientCost
+s.cost as clientCost,
+s.appointmentId
 from session s 
 inner join appointment a on s.appointmentId = a.entityid
 inner join [user] t on a.trainerId = t.entityId
-where s.trainerPaid = 1
+where s.SessionUsed = 1
+and s.InArrears = 0
 and a.locationId in (${locationIds.join(",")})
 and a.date >= DATETIMEFROMPARTS(year(getDate()),month(dateadd(MM,-1,getDate())),1,00, 00, 0,0)
 and a.date <= DATETIMEFROMPARTS(year(getDate()),month(dateadd(MM,-1,getDate())),day(EOMONTH(dateadd(MM,-1,getDate()))),00, 01, 0,0)
 `;
 
-const getHour = (type) => {
-	switch (type) {
-		case "Pair":
+const pairs = {};
+const getHour = (item) => {
+	switch (item.appointmentType) {
+		case "Pair": {
+			if (pairs[item.appointmentId]) {
+				return 0;
+			}
+			pairs[item.appointmentId] = 1;
+			return 1;
+		}
 		case "Hour": {
 			return 1;
 		}
@@ -63,7 +71,7 @@ const aggregateData = (data, manager) => {
 	};
 	const reduction = (data || []).reduce(
 		(acc, item) => {
-			const appointmentHours = getHour(item.appointmentType);
+			const appointmentHours = getHour(item);
 			const trainer = `${item.lastName}, ${item.firstName}`;
 			acc[trainer] = acc[trainer] || {};
 			acc[trainer].trainer = trainer;
@@ -101,7 +109,7 @@ const aggregateData = (data, manager) => {
 };
 
 const buildManagerCommissionReport = async (event) => {
-	mssql = await sql.connect(process.env.DB_CONNECTION);
+	const mssql = await sql.connect(process.env.DB_CONNECTION);
 	const items = await mssql.query(generateSqlStatement(event.locationIds));
 	console.log(
 		`Manager Commission sql returned ${items.recordset.length} records`

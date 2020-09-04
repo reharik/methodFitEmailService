@@ -11,12 +11,13 @@ const sendEmail = require("./../sendEmail");
 const buildDailyPaymentEmail = require("./buildDailyPaymentEmail");
 const moment = require("moment");
 
-const dailyPaymentReport = async (context) => {
+const dailyPaymentReport = async (event, context) => {
 	const data = await buildDailyPaymentList();
 	const email = await buildDailyPaymentEmail(data);
 	await sendEmail(
 		`${moment().format("MMM Do YYYY")} Daily Payment Report`,
 		email,
+		event,
 		context
 	);
 };

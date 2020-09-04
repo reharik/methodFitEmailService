@@ -15,11 +15,9 @@ const trainersClients = (group) =>
 		.sort((a, b) => (moment(a.LastDate).isAfter(moment(b.LastDate)) ? 1 : -1))
 		.reduce((acc, x) => {
 			acc += `    <br />
-${x.FirstName} ${x.LastName}'s Last Appointment was on ${moment(
-				x.LastDate
-			).format("MMM Do YYYY")}.
-Their Phone number is ${x.MobilePhone}.
-Their Email is <a href='mailto:"${x.Email}"'>${x.Email}</a>
+${x.FirstName} ${x.LastName}: Last Appointment ${moment(x.LastDate).format(
+				"M/D/YYYY"
+			)}.
 <br />`;
 			return acc;
 		}, "");
@@ -33,13 +31,13 @@ ${trainersClients(groupedTrainers[key])}`;
 
 const buildWeeklyAbsenteeEmail = async (data) => {
 	const groupedTrainers = groupBy(
-		data.recordset,
+		data,
 		(c) => `${c.TrainerLastName}, ${c.TrainerFirstName}`
 	);
 
-	const email = `<b>Weekly absentee report for ${moment()
-		.subtract(10, "days")
-		.format("MMM Do YYYY")}</b><br /><br />${trainers(groupedTrainers)}`;
+	const email = `<b>Weekly absentee report for week ending ${moment().format(
+		"MMM Do YYYY"
+	)}</b><br /><br />${trainers(groupedTrainers)}`;
 
 	console.log("Weekly Absentee Email successfully built");
 	return email;

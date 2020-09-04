@@ -33,7 +33,7 @@ WHERE p.createdDate between
 	and DATETIMEFROMPARTS(year(getDate()),month(getDate()),day(dateadd(DD,-1,getdate())),23, 59, 0,0)`;
 
 const buildDailyPaymentList = async () => {
-	mssql = await sql.connect(process.env.DB_CONNECTION);
+	const mssql = await sql.connect(process.env.DB_CONNECTION);
 
 	const payments = await mssql.query(sqlStatement);
 	console.log(

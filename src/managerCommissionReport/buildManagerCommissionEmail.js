@@ -27,19 +27,19 @@ const buildFooter = (totals) => `
 		<td>${totals.allClients}</td>
 	</tr>
 	<tr style="font-weight:bold;">
-		<td colspan="2">Commission Base</td>
+		<td>Commission Base</td>
+		<td colspan="2">${formatCurrency(totals.eligableRevenue)}</td>
 		<td></td>
-		<td>${formatCurrency(totals.eligableRevenue)}</td>
 	</tr>
 	<tr style="font-weight:bold;">
-		<td colspan="2">Commission %</td>
+		<td colspan="">Commission %</td>
+		<td colspan="2">${totals.managerPercentage * 100}%</td>
 		<td></td>
-		<td>${totals.managerPercentage * 100}%</td>
 	</tr>
 	<tr style="font-weight:bold;">
-		<td colspan="2">Manager Commission</td>
+		<td>Manager Commission</td>
+		<td colspan="2">${formatCurrency(totals.managerCommission)}</td>
 		<td></td>
-		<td>${formatCurrency(totals.managerCommission)}</td>
 	</tr>
 `;
 

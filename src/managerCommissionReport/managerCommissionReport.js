@@ -12,9 +12,6 @@ const buildManagerCommissionEmail = require("./buildManagerCommissionEmail");
 const moment = require("moment");
 
 const managerCommissionReport = async (event, context) => {
-	console.log(`************event************`);
-	console.log(event);
-	console.log(`********END event************`);
 	const data = await buildManagerCommissionList(event);
 	const email = await buildManagerCommissionEmail(data);
 	await sendEmail(
@@ -22,6 +19,7 @@ const managerCommissionReport = async (event, context) => {
 			.subtract(1, "month")
 			.format("MMMM YYYY")} Manager Commission Report`,
 		email,
+		event,
 		context
 	);
 };
