@@ -21,7 +21,7 @@ where s.SessionUsed = 1
 and s.InArrears = 0
 and a.locationId in (${locationIds.join(",")})
 and a.date >= DATETIMEFROMPARTS(year(getDate()),month(dateadd(MM,-1,getDate())),1,00, 00, 0,0)
-and a.date <= DATETIMEFROMPARTS(year(getDate()),month(dateadd(MM,-1,getDate())),day(EOMONTH(dateadd(MM,-1,getDate()))),00, 01, 0,0)
+and a.date <= DATETIMEFROMPARTS(year(getDate()),month(dateadd(MM,-1,getDate())),day(EOMONTH(dateadd(MM,-1,getDate()))),23, 01, 0,0)
 `;
 
 const pairs = {};
