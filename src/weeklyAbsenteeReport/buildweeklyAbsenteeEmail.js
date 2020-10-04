@@ -22,25 +22,24 @@ ${x.FirstName} ${x.LastName}: Last Appointment ${moment(x.LastDate).format(
 			return acc;
 		}, "");
 
-const trainers = (groupedTrainers) =>
-	Object.keys(groupedTrainers).reduce((acc, key) => {
-		acc += `<br /><b> ${key}</b><br />
-${trainersClients(groupedTrainers[key])}`;
-		return acc;
-	}, "");
-
-const buildWeeklyAbsenteeEmail = async (data) => {
+const buildWeeklyAbsenteeEmails = (data) => {
 	const groupedTrainers = groupBy(
 		data,
 		(c) => `${c.TrainerLastName}, ${c.TrainerFirstName}`
 	);
 
-	const email = `<b>Weekly absentee report for week ending ${moment().format(
-		"MMM Do YYYY"
-	)}</b><br /><br />${trainers(groupedTrainers)}`;
+	const emails = Object.keys(groupedTrainers).map((key) => {
+		const group = groupedTrainers[key];
 
-	console.log("Weekly Absentee Email successfully built");
-	return email;
+		const trainerEmail = group[0].trainerEmail;
+		const email = `<b>Weekly absentee report for week ending ${moment().format(
+			"MMM Do YYYY"
+		)}</b><br /><br />${trainersClients(groupedTrainers[key])}`;
+		return { toAddress: trainerEmail, email };
+	});
+
+	console.log("Weekly Absentee Emails successfully built");
+	return emails;
 };
 
-module.exports = buildWeeklyAbsenteeEmail;
+module.exports = buildWeeklyAbsenteeEmails;

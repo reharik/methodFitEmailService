@@ -6,15 +6,22 @@
 //  *
 //  * Copyright (c) 2020 TaskRabbit, Inc
 //  */
-var moment = require("moment");
 var aws = require("aws-sdk");
 var ses = new aws.SES({ region: "us-east-2" });
 
-const sendEmail = async (subject, email, event, context) => {
+const sendEmail = async (
+	subject,
+	email,
+	event,
+	context,
+	toAddress = process.env.EMAIL_ADDRESS,
+	ccAddresses
+) => {
 	const overrideEmail = event.emailAddress;
 	const params = {
 		Destination: {
-			ToAddresses: [overrideEmail || process.env.EMAIL_ADDRESS],
+			ToAddresses: [overrideEmail || toAddress],
+			CcAddresses: !overrideEmail ? ccAddresses : [],
 		},
 		Message: {
 			Body: {
@@ -34,7 +41,6 @@ const sendEmail = async (subject, email, event, context) => {
 	try {
 		const result = await ses.sendEmail(params).promise();
 		console.log(`${subject} sent successfully: ${result.MessageId}`);
-		context.done(null, "Success");
 	} catch (err) {
 		console.error(`${subject} was not sent successfully`);
 		console.error(err, err.stack);

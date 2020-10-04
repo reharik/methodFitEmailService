@@ -22,6 +22,7 @@ const managerCommissionReport = async (event, context) => {
 		event,
 		context
 	);
+	context.done(null, "Success");
 };
 
 module.exports = managerCommissionReport;

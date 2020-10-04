@@ -9,6 +9,7 @@
 const sql = require("mssql");
 
 const sqlStatement = `SELECT  c.EntityId, 
+u.email as trainerEmail,
 u.FirstName as TrainerFirstName,
 u.LastName as TrainerLastName,
 c.FirstName,
@@ -28,7 +29,7 @@ c.firstName,
 c.lastName,
 c.email,
 c.mobilephone,
-
+u.email,
 a.Completed,
 u.FirstName,
 u.LastName

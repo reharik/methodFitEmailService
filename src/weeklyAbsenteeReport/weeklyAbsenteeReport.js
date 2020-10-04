@@ -8,18 +8,24 @@
  */
 const buildWeeklyAbsenteeList = require("./buildWeeklyAbsenteeList");
 const sendEmail = require("./../sendEmail");
-const buildWeeklyAbsenteeEmail = require("./buildweeklyAbsenteeEmail");
+const buildWeeklyAbsenteeEmails = require("./buildweeklyAbsenteeEmail");
 const moment = require("moment");
 
 const weeklyAbsenteeReport = async (event, context) => {
 	const data = await buildWeeklyAbsenteeList(event);
-	const email = await buildWeeklyAbsenteeEmail(data);
-	await sendEmail(
-		`${moment().format("MMM Do YYYY")} Client Absentee Report`,
-		email,
-		event,
-		context
-	);
+	const emails = buildWeeklyAbsenteeEmails(data);
+	for (let i = 0; i < emails.length; i++) {
+		const e = emails[i];
+		await sendEmail(
+			`${moment().format("MMM Do YYYY")} Client Absentee Report`,
+			e.email,
+			event,
+			context,
+			e.toAddress,
+			[process.env.EMAIL_ADDRESS]
+		);
+	}
+	context.done(null, "Success");
 };
 
 module.exports = weeklyAbsenteeReport;
