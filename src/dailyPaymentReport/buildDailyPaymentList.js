@@ -30,7 +30,8 @@ FROM Payment as p INNER JOIN [User] AS t ON p.CreatedById = t.EntityId
 		INNER JOIN Client as c ON p.ClientId = c.EntityId
 WHERE p.createdDate between 
 	DATETIMEFROMPARTS(year(getDate()),month(getDate()),day(dateadd(DD,-1,getdate())),00, 01, 0,0)
-	and DATETIMEFROMPARTS(year(getDate()),month(getDate()),day(dateadd(DD,-1,getdate())),23, 59, 0,0)`;
+	and DATETIMEFROMPARTS(year(getDate()),month(getDate()),day(dateadd(DD,-1,getdate())),23, 59, 0,0)
+ORDER BY c.LastName`;
 
 const buildDailyPaymentList = async () => {
 	const mssql = await sql.connect(process.env.DB_CONNECTION);
