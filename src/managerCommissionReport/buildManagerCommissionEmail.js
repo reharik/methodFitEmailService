@@ -8,71 +8,18 @@
  */
 
 const moment = require("moment");
+const sessions = require("./sessions");
+const inarrears = require("./inarrears");
 
-const root = `
-<table style="border:1px solid black; padding:3px; width: 100%;">
-	<tr style="font-weight:bold;" >
-		<td style="border-bottom:1px solid black">Trainer</td>
-		<td style="border-bottom:1px solid black">Revenue</td>
-		<td style="border-bottom:1px solid black">Total Hours</td>
-		<td style="border-bottom:1px solid black">Active Clients</td>
-	</tr>
-`;
-
-const buildFooter = (totals) => `
-	<tr style="font-weight:bold;" >
-		<td>Total</td>
-		<td>${formatCurrency(totals.allRevenue)}</td>
-		<td>${totals.allHours}</td>
-		<td>${totals.allClients}</td>
-	</tr>
-	<tr style="font-weight:bold;">
-		<td>Commission Base</td>
-		<td colspan="2">${formatCurrency(totals.eligableRevenue)}</td>
-		<td></td>
-	</tr>
-	<tr style="font-weight:bold;">
-		<td colspan="">Commission %</td>
-		<td colspan="2">${totals.managerPercentage * 100}%</td>
-		<td></td>
-	</tr>
-	<tr style="font-weight:bold;">
-		<td>Manager Commission</td>
-		<td colspan="2">${formatCurrency(totals.managerCommission)}</td>
-		<td></td>
-	</tr>
-`;
-
-const buildRow = (row) => `
-	<tr>
-		<td style="border-bottom:1px solid black">
-			${row.trainer}</td>
-		<td style="border-bottom:1px solid black">
-			${formatCurrency(row.totalRevenue)}</td>
-		<td style="border-bottom:1px solid black">
-			${row.totalHours}</td>
-		<td style="border-bottom:1px solid black">
-			${row.clientTotal}</td>
-	</tr>
-`;
-
-const formatCurrency = (value) => {
-	return new Intl.NumberFormat("en-Us", {
-		style: "currency",
-		currency: "USD",
-	}).format(value);
-};
-
-const buildManagerCommissionReport = async (data) => {
-	let html = root;
-	data.rows.forEach((x) => (html += buildRow(x)));
-	html += buildFooter(data.totals);
-	html += `</table>`;
-
-	const email = `<b>Manager Commission report for ${moment()
+const buildManagerCommissionReport = async ({ data, inarrearsData }) => {
+	const sessionsHtml = sessions(data);
+	const inarrearsHtml = inarrears(inarrearsData);
+	let email = `<b>Manager Commission report for ${moment()
 		.subtract(1, "month")
-		.format("MMMM YYYY")}</b><br /><br />${html}`;
-
+		.format("MMMM YYYY")}</b><br /><br />${sessionsHtml}`;
+	if (Object.keys(inarrearsData).length > 0) {
+		email += `<br /><br /><b>In Arrears</b><br /><br />${inarrearsHtml}`;
+	}
 	console.log("Manager Commission Email successfully built");
 	return email;
 };

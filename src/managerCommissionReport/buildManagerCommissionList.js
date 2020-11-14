@@ -5,20 +5,26 @@
  * Author: Raif
  *
  * Copyright (c) 2020 TaskRabbit, Inc
- */ const sql = require("mssql");
+ */
+const sql = require("mssql");
+const moment = require("moment");
 
 const generateSqlStatement = (locationIds) => `select 
 t.firstName,
 t.lastName,
+c.firstName as clientFirstName,
+c.lastName as clientLastName,
 s.appointmentType,
 s.clientId,
 s.cost as clientCost,
-s.appointmentId
+s.appointmentId,
+InArrears,
+a.startTime
 from session s 
 inner join appointment a on s.appointmentId = a.entityid
 inner join [user] t on a.trainerId = t.entityId
+inner join client c on c.entityId = s.clientId
 where s.SessionUsed = 1
-and s.InArrears = 0
 and a.locationId in (${locationIds.join(",")})
 and a.date >= DATETIMEFROMPARTS(year(getDate()),month(dateadd(MM,-1,getDate())),1,00, 00, 0,0)
 and a.date <= DATETIMEFROMPARTS(year(getDate()),month(dateadd(MM,-1,getDate())),day(EOMONTH(dateadd(MM,-1,getDate()))),23, 01, 0,0)
@@ -108,13 +114,36 @@ const aggregateData = (data, manager) => {
 	return result;
 };
 
+const aggregateInarrears = (data) => {
+	return (data || []).reduce((acc, item) => {
+		const trainer = `${item.lastName}, ${item.firstName}`;
+		const client = `${item.clientLastName}, ${item.clientFirstName}`;
+		acc[trainer] = acc[trainer] || [];
+		acc[trainer].push({
+			client,
+			trainer,
+			date: moment(item.startTime).format("MMM Do YYYY hh:mm A"),
+			type: item.appointmentType,
+		});
+		return acc;
+	}, {});
+};
+
 const buildManagerCommissionReport = async (event) => {
 	const mssql = await sql.connect(process.env.DB_CONNECTION);
 	const items = await mssql.query(generateSqlStatement(event.locationIds));
 	console.log(
 		`Manager Commission sql returned ${items.recordset.length} records`
 	);
-	return aggregateData(items.recordset, event.manager);
+	return {
+		data: aggregateData(
+			items.recordset.filter((x) => !x.inarrears),
+			event.manager
+		),
+		inarrearsData: aggregateInarrears(
+			items.recordset.filter((x) => x.inarrears)
+		),
+	};
 };
 
 module.exports = buildManagerCommissionReport;
