@@ -26,8 +26,8 @@ inner join [user] t on a.trainerId = t.entityId
 inner join client c on c.entityId = s.clientId
 where s.SessionUsed = 1
 and a.locationId in (${locationIds.join(",")})
-and a.date >= DATETIMEFROMPARTS(year(getDate()),month(dateadd(MM,-1,getDate())),1,00, 00, 0,0)
-and a.date <= DATETIMEFROMPARTS(year(getDate()),month(dateadd(MM,-1,getDate())),day(EOMONTH(dateadd(MM,-1,getDate()))),23, 01, 0,0)
+and a.date >= format(DATEADD(MONTH, -1, getDate()), 'yyyy-MM-01') 
+and a.date <= EOMONTH(DATEADD(MONTH, -1, getDate()))
 `;
 
 const pairs = {};

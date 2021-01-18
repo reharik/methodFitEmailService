@@ -33,7 +33,7 @@ u.email,
 a.Completed,
 u.FirstName,
 u.LastName
-having max(a.date) < DATEADD(DAY, DATEDIFF(DAY, 0, GETDATE()), -10) 
+having max(a.date) < DATEADD(DAY, DATEDIFF(DAY, 0, GETDATE()), -6) 
 --and max(a.date) > DATEADD(DAY, DATEDIFF(DAY, 0, GETDATE()), -90)
 and a.Completed = 1
 order by u.lastname, u.FirstName`;
