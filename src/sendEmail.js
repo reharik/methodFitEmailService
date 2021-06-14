@@ -40,11 +40,11 @@ const sendEmail = async (
 
 	try {
 		const result = await ses.sendEmail(params).promise();
-		console.log(`${subject} sent successfully: ${result.MessageId}`);
+		console.log(`${email} sent successfully: ${result.MessageId}`);
 	} catch (err) {
-		console.error(`${subject} was not sent successfully`);
+		console.error(`${email} was not sent successfully`);
 		console.error(err, err.stack);
-		context.done(null, "Failed");
+		// remove context.done.  we want to keep processing emails even if one shit's the bed.
 	}
 };
 
