@@ -4,7 +4,6 @@
  * Created Date: 2020-08-02
  * Author: Raif
  *
- * Copyright (c) 2020 TaskRabbit, Inc
  */
 const buildDailyPaymentList = require("./buildDailyPaymentList");
 const sendEmail = require("./../sendEmail");

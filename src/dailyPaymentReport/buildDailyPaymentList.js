@@ -4,7 +4,6 @@
  * Created Date: 2020-08-14
  * Author: Raif
  *
- * Copyright (c) 2020 TaskRabbit, Inc
  */
 
 const sql = require("mssql");

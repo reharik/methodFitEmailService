@@ -4,7 +4,6 @@
 //  * Created Date: 2020-08-02
 //  * Author: Raif
 //  *
-//  * Copyright (c) 2020 TaskRabbit, Inc
 //  */
 var aws = require("aws-sdk");
 var ses = new aws.SES({ region: "us-east-2" });
@@ -40,11 +39,11 @@ const sendEmail = async (
 
 	try {
 		const result = await ses.sendEmail(params).promise();
-		console.log(`${email} sent successfully: ${result.MessageId}`);
+		console.log(`${toAddress} sent successfully: ${result.MessageId}`);
 	} catch (err) {
-		console.error(`${email} was not sent successfully`);
+		console.error(`${toAddress} was not sent successfully`);
 		console.error(err, err.stack);
-		// remove context.done.  we want to keep processing emails even if one shit's the bed.
+		// remove context.done.  we want to keep processing toAddresss even if one shit's the bed.
 	}
 };
 

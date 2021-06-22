@@ -4,7 +4,6 @@
  * Created Date: 2020-11-14
  * Author: Raif
  *
- * Copyright (c) 2020 TaskRabbit, Inc
  */
 
 const root = `

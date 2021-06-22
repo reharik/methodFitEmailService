@@ -4,7 +4,6 @@
  * Created Date: 2020-08-02
  * Author: Raif
  *
- * Copyright (c) 2020 TaskRabbit, Inc
  */
 const buildManagerCommissionList = require("./buildManagerCommissionList");
 const sendEmail = require("../sendEmail");
