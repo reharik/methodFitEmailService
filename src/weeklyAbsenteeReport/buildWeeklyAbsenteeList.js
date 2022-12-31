@@ -5,7 +5,14 @@
  * Author: Raif
  *
  */
+
 const sql = require("mssql");
+const {DateTime} = require('luxon');
+const now =  DateTime.now().minus({"hours":5})
+const cutOffDate = now.minus({"days":6}).toISO();
+const cutOffISO = cutOffDate.substring(0,cutOffDate.indexOf("T"));
+const nowISO = now.toISO().substring(0,now.toISO().indexOf("+"));
+
 
 const sqlStatement = `SELECT  c.EntityId, 
 u.email as trainerEmail,
@@ -32,7 +39,7 @@ u.email,
 a.Completed,
 u.FirstName,
 u.LastName
-having max(a.date) < DATEADD(DAY, DATEDIFF(DAY, 0, GETDATE()), -6)
+having max(a.date) < '${cutOffISO}'
 --and max(a.date) > DATEADD(DAY, DATEDIFF(DAY, 0, GETDATE()), -90)
 and a.Completed = 1
 order by u.lastname, u.FirstName`;

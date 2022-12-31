@@ -17,6 +17,12 @@ const sendEmail = async (
 	ccAddresses
 ) => {
 	const overrideEmail = event.emailAddress;
+	console.log(JSON.stringify({
+		Destination: {
+			ToAddresses: [overrideEmail || toAddress],
+			CcAddresses: !overrideEmail ? ccAddresses : [],
+		}}, null, 4))
+	
 	const params = {
 		Destination: {
 			ToAddresses: [overrideEmail || toAddress],
