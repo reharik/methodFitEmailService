@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "lodash": "^4.17.19",
+    "luxon": "^3.2.0",
     "moment": "^2.27.0",
     "mssql": "^6.2.1"
   }
