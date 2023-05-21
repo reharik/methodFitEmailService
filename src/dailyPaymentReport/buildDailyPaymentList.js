@@ -28,8 +28,8 @@ p.EntityId
 FROM Payment as p INNER JOIN [User] AS t ON p.CreatedById = t.EntityId 
 		INNER JOIN Client as c ON p.ClientId = c.EntityId
 WHERE p.createdDate between 
-	DATETIMEFROMPARTS(year(getDate()),month(getDate()),day(dateadd(DD,-1,getdate())),00, 01, 0,0)
-	and DATETIMEFROMPARTS(year(getDate()),month(getDate()),day(dateadd(DD,-1,getdate())),23, 59, 0,0)
+SWITCHOFFSET(dateadd(day, datediff(day, 0, getdate()), 0), DATEPART(TZOFFSET, dateadd(day, datediff(day, 0, getdate()), 0) AT TIME ZONE 'Eastern Standard Time')) AND
+SWITCHOFFSET(dateadd(day, datediff(day, 0, getdate())+1, 0), DATEPART(TZOFFSET, dateadd(day, datediff(day, 0, getdate())+1, 0) AT TIME ZONE 'Eastern Standard Time'))
 ORDER BY c.LastName`;
 
 const buildDailyPaymentList = async () => {
