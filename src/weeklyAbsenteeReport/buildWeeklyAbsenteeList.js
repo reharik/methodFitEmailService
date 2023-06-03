@@ -38,7 +38,8 @@ c.mobilephone,
 u.email,
 a.Completed,
 u.FirstName,
-u.LastName
+u.LastName,
+c.Archived
 having max(a.date) < '${cutOffISO}'
 --and max(a.date) > DATEADD(DAY, DATEDIFF(DAY, 0, GETDATE()), -90)
 and a.Completed = 1
