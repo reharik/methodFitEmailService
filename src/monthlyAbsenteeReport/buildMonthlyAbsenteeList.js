@@ -62,6 +62,7 @@ WHERE
         and a1.Completed = 1
 )
 and NOT c.Archived = 1
+and NOT u.Archived = 1
 order by c.LastName, c.FirstName`;
 
 const buildMonthlyAbsenteeList = async () => {

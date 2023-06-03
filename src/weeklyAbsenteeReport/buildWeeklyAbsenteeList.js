@@ -39,11 +39,13 @@ u.email,
 a.Completed,
 u.FirstName,
 u.LastName,
-c.Archived
+c.Archived,
+u.Archived
 having max(a.date) < '${cutOffISO}'
 --and max(a.date) > DATEADD(DAY, DATEDIFF(DAY, 0, GETDATE()), -90)
 and a.Completed = 1
 and NOT c.Archived = 1
+and NOT u.Archived = 1
 order by u.lastname, u.FirstName`;
 
 const buildWeeklyAbsenteeList = async () => {
