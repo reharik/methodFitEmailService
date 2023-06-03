@@ -8,7 +8,7 @@
 
 const sql = require("mssql");
 
-const sqlStatement = `SELECT p.CreatedDate,
+const sqlStatement = `SELECT cast(p.CreatedDate At Time Zone 'UTC' At Time Zone 'Eastern Standard Time' As datetime) as CreatedDate,
 t.FirstName + ' ' + t.LastName AS Trainer,
 c.FirstName + ' ' + c.LastName AS Client,
 p.FullHour,
@@ -27,10 +27,9 @@ p.PaymentTotal,
 p.EntityId
 FROM Payment as p INNER JOIN [User] AS t ON p.CreatedById = t.EntityId 
 		INNER JOIN Client as c ON p.ClientId = c.EntityId
-		WHERE cast(p.CreatedDate At Time Zone 'UTC' At Time Zone 'Eastern Standard Time' As datetime) between
-		CONVERT(datetime, SWITCHOFFSET(@StartDate, DATEPART(TZOFFSET, @StartDate AT TIME ZONE 'Eastern Standard Time')))
-		AND CONVERT(datetime, SWITCHOFFSET(DateAdd(mi,-1, DateAdd(day, 1,@EndDate)), DATEPART(TZOFFSET, DateAdd(mi,-1, DateAdd(day, 1, @EndDate)) AT TIME ZONE 'Eastern Standard Time')))
-		ORDER BY c.LastName`;
+WHERE cast(p.CreatedDate At Time Zone 'UTC' At Time Zone 'Eastern Standard Time' As datetime) between
+		@StartDate AND DATEADD(mi, -1,Convert(DateTime, DATEDIFF(DAY, -1, @EndDate)))
+ORDER BY c.LastName`;
 
 const buildDailyPaymentList = async () => {
 	const mssql = await sql.connect(process.env.DB_CONNECTION);
