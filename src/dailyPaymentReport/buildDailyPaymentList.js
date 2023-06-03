@@ -33,9 +33,6 @@ WHERE cast(p.CreatedDate At Time Zone 'UTC' At Time Zone 'Eastern Standard Time'
 ORDER BY c.LastName`;
 
 const buildDailyPaymentList = async () => {
-	console.log(`************process.env.DB_CONNECTION************`);
-	console.log(process.env.DB_CONNECTION);
-	console.log(`********END process.env.DB_CONNECTION************`);
 	const mssql = await sql.connect(process.env.DB_CONNECTION);
 
 	const payments = await mssql.query(sqlStatement);
