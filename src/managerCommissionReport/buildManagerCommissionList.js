@@ -133,7 +133,7 @@ const buildManagerCommissionReport = async (event) => {
 	// I can't remember how to make the event send a gd payload.  So I'm just gonna hardcode this for now
 	const items = await mssql.query(generateSqlStatement([2,3]));
 	console.log(
-		`Manager Commission sql V2 returned ${items.recordset.length} records`
+		`Manager Commission sql returned ${items.recordset.length} records`
 	);
 	return {
 		data: aggregateData(

@@ -16,7 +16,7 @@ const managerCommissionReport = async (event, context) => {
 	await sendEmail(
 		`${moment()
 			.subtract(1, "month")
-			.format("MMMM YYYY")} Manager Commission Report`,
+			.format("MMMM YYYY")} Manager Commission Report V2`,
 		email,
 		event,
 		context
