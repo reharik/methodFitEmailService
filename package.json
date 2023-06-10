@@ -1,6 +1,6 @@
 {
   "name": "lambdaemails",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "",
   "main": "handler.js",
   "scripts": {
