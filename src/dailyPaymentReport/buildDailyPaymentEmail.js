@@ -100,7 +100,7 @@ const buildWeeklyPaymentEmail = async (payments) => {
 		html += `</table>`;
 	}
 
-	const email = `<b>Daily payment report for ${moment().format(
+	const email = `<b>Report for payments made on ${moment().subtract(1,"days").format(
 		"MMM Do YYYY"
 	)}</b><br /><br />${html}`;
 	console.log("Daily Payment Email successfully built");
