@@ -138,7 +138,8 @@ const buildManagerCommissionReport = async (event) => {
 	return {
 		data: aggregateData(
 			items.recordset.filter((x) => !x.inarrears),
-			event.manager
+			// I can't remember how to make the event send a gd payload.  So I'm just gonna hardcode this for now
+			"Clark, Adam"
 		),
 		inarrearsData: aggregateInarrears(
 			items.recordset.filter((x) => x.inarrears)
