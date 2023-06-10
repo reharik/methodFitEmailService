@@ -130,7 +130,8 @@ const aggregateInarrears = (data) => {
 
 const buildManagerCommissionReport = async (event) => {
 	const mssql = await sql.connect(process.env.DB_CONNECTION);
-	const items = await mssql.query(generateSqlStatement(event.locationIds));
+	// I can't remember how to make the event send a gd payload.  So I'm just gonna hardcode this for now
+	const items = await mssql.query(generateSqlStatement([3]));
 	console.log(
 		`Manager Commission sql returned ${items.recordset.length} records`
 	);
