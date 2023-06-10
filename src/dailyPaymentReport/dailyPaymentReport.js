@@ -14,7 +14,7 @@ const dailyPaymentReport = async (event, context) => {
 	const data = await buildDailyPaymentList();
 	const email = await buildDailyPaymentEmail(data);
 	await sendEmail(
-		`${moment().format("MMM Do YYYY")} Daily Payment Report`,
+		`${moment().subtract(1,"days").format("MMM Do YYYY")} Daily Payment Report`,
 		email,
 		event,
 		context
