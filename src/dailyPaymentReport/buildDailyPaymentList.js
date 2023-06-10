@@ -28,8 +28,8 @@ p.EntityId
 FROM Payment as p INNER JOIN [User] AS t ON p.CreatedById = t.EntityId 
 		INNER JOIN Client as c ON p.ClientId = c.EntityId
 WHERE cast(p.CreatedDate At Time Zone 'UTC' At Time Zone 'Eastern Standard Time' As datetime) between
-		Convert(DateTime, DATEDIFF(DAY, 0, GETDATE()))
-		AND DATEADD(mi, -1,Convert(DateTime, DATEDIFF(DAY, -1, GETDATE())))
+		DATEAdd(day,-1,Convert(DateTime, DATEDIFF(DAY, 0, GETDATE()))) 
+AND DATEADD(day,-1,DATEADD(mi, -1,Convert(DateTime, DATEDIFF(DAY, -1, GETDATE()))))
 ORDER BY c.LastName`;
 
 const buildDailyPaymentList = async () => {
