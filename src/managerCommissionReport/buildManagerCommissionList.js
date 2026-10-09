@@ -10,6 +10,7 @@ const moment = require("moment");
 
 const generateSqlStatement = (locationIds) => `select
   x.trainer,
+  x.trainerEmail,
   x.clientTotal,
   x.totalHours,
   x.totalRevenue,
@@ -18,6 +19,7 @@ from (
   select
     t.entityId as trainerId,
     concat(t.lastName, ', ', t.firstName) as trainer,
+    t.email as trainerEmail,
     count(distinct s.clientId) as clientTotal,
     -- Hour = 1, Half Hour = .5, Pair = 1 per appointment (not per client)
     sum(case s.appointmentType when 'Hour' then 1.0 when 'Half Hour' then 0.5 else 0 end)
@@ -30,7 +32,7 @@ from (
     and a.locationId in (${locationIds.join(",")})
     and a.date >= format(DATEADD(MONTH, -1, getDate()), 'yyyy-MM-01')
     and a.date <= EOMONTH(DATEADD(MONTH, -1, getDate()))
-  group by t.entityId, t.lastName, t.firstName
+  group by t.entityId, t.lastName, t.firstName, t.email
 ) x
 order by x.trainerId
 `;

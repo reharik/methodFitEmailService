@@ -13,7 +13,7 @@ const root = `
 		<td style="border-bottom:1px solid black">Revenue</td>
 		<td style="border-bottom:1px solid black">Total Hours</td>
 		<td style="border-bottom:1px solid black">Active Clients</td>
-		<td style="border-bottom:1px solid black">Hours Per Client</td>
+		<td style="border-bottom:1px solid black">Ave Hours/Client</td>
 	</tr>
 `;
 

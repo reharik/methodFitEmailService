@@ -7,20 +7,20 @@
  */
 
 const moment = require("moment");
-const sessions = require("./sessions");
+const sessions = require("./managerSessions");
 const inarrears = require("./inarrears");
 
 const buildManagerCommissionReport = async ({ data, inarrearsData }) => {
-	const sessionsHtml = sessions(data);
-	const inarrearsHtml = inarrears(inarrearsData);
-	let email = `<b>Manager Commission report for ${moment()
-		.subtract(1, "month")
-		.format("MMMM YYYY")}</b><br /><br />${sessionsHtml}`;
-	if (Object.keys(inarrearsData).length > 0) {
-		email += `<br /><br /><b>In Arrears</b><br /><br />${inarrearsHtml}`;
-	}
-	console.log("Manager Commission Email successfully built");
-	return email;
+  const sessionsHtml = sessions(data);
+  const inarrearsHtml = inarrears(inarrearsData);
+  let email = `<b>Manager Commission report for ${moment()
+    .subtract(1, "month")
+    .format("MMMM YYYY")}</b><br /><br />${sessionsHtml}`;
+  if (Object.keys(inarrearsData).length > 0) {
+    email += `<br /><br /><b>In Arrears</b><br /><br />${inarrearsHtml}`;
+  }
+  console.log("Manager Commission Email successfully built");
+  return email;
 };
 
 module.exports = buildManagerCommissionReport;
