@@ -27,7 +27,9 @@ const managerCommissionReport = async (event, context) => {
   for (let i = 0; i < emails.length; i++) {
     const e = emails[i];
     await sendEmail(
-      `${moment().format("MMM YYYY")} Active Trainer Report`,
+      `${moment()
+        .subtract(1, "month")
+        .format("MMMM YYYY")} Active Trainer Report`,
       e.email,
       event,
       context,
