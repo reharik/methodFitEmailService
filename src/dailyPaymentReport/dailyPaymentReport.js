@@ -19,7 +19,6 @@ const dailyPaymentReport = async (event, context) => {
 		event,
 		context
 	);
-	context.done(null, "Success");
 };
 
 module.exports = dailyPaymentReport;

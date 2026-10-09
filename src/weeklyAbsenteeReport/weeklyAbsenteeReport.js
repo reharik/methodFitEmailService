@@ -24,7 +24,6 @@ const weeklyAbsenteeReport = async (event, context) => {
 			[process.env.EMAIL_ADDRESS]
 		);
 	}
-	context.done(null, "Success");
 };
 
 module.exports = weeklyAbsenteeReport;

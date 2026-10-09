@@ -13,6 +13,7 @@ const root = `
 		<td style="border-bottom:1px solid black">Revenue</td>
 		<td style="border-bottom:1px solid black">Total Hours</td>
 		<td style="border-bottom:1px solid black">Active Clients</td>
+		<td style="border-bottom:1px solid black">Hours Per Client</td>
 	</tr>
 `;
 
@@ -22,6 +23,7 @@ const buildFooter = (totals) => `
 		<td>${formatCurrency(totals.allRevenue)}</td>
 		<td>${totals.allHours}</td>
 		<td>${totals.allClients}</td>
+		<td>${totals.average}</td>
 	</tr>
 	<tr style="font-weight:bold;">
 		<td>Commission Base</td>
@@ -50,23 +52,25 @@ const buildRow = (row) => `
 			${row.totalHours}</td>
 		<td style="border-bottom:1px solid black">
 			${row.clientTotal}</td>
+		<td style="border-bottom:1px solid black">
+			${row.average}</td>
 	</tr>
 `;
 
 const formatCurrency = (value) => {
-	return new Intl.NumberFormat("en-Us", {
-		style: "currency",
-		currency: "USD",
-	}).format(value);
+  return new Intl.NumberFormat("en-Us", {
+    style: "currency",
+    currency: "USD",
+  }).format(value);
 };
 
 const sessions = (data) => {
-	let html = root;
-	data.rows.forEach((x) => (html += buildRow(x)));
-	html += buildFooter(data.totals);
-	html += `</table>`;
+  let html = root;
+  data.rows.forEach((x) => (html += buildRow(x)));
+  html += buildFooter(data.totals);
+  html += `</table>`;
 
-	return html;
+  return html;
 };
 
 module.exports = sessions;

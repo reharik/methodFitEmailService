@@ -19,7 +19,6 @@ const monthlyAbsenteeReport = async (event, context) => {
 		event,
 		context
 	);
-	context.done(null, "Success");
 };
 
 module.exports = monthlyAbsenteeReport;

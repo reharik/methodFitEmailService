@@ -15,7 +15,7 @@ module.exports.dailyPaymentReport = async (event, context) => {
 	await dailyPaymentReport(event, context);
 	return {
 		statusCode: 200,
-		body: result, //;JSON.stringify(result, null, 2),
+		body: "Success",
 	};
 };
 
@@ -23,7 +23,7 @@ module.exports.weeklyAbsenteeReport = async (event, context) => {
 	await weeklyAbsenteeReport(event, context);
 	return {
 		statusCode: 200,
-		body: result, //;JSON.stringify(result, null, 2),
+		body: "Success",
 	};
 };
 
@@ -31,7 +31,7 @@ module.exports.managerCommissionReport = async (event, context) => {
 	await managerCommissionReport(event, context);
 	return {
 		statusCode: 200,
-		body: result, //;JSON.stringify(result, null, 2),
+		body: "Success",
 	};
 };
 
@@ -39,6 +39,6 @@ module.exports.monthlyAbsenteeReport = async (event, context) => {
 	await monthlyAbsenteeReport(event, context);
 	return {
 		statusCode: 200,
-		body: result, //;JSON.stringify(result, null, 2),
+		body: "Success",
 	};
 };
