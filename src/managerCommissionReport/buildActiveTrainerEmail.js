@@ -12,7 +12,7 @@ const moment = require("moment");
 const buildActiveTrainerReport = async ({ data }) => {
   const emails = data.rows.map((x) => {
     const sessionsHtml = sessions({ rows: [x] });
-    let email = `<b>Average hours per client for ${moment()
+    let email = `<b>Average hours per client for the month of ${moment()
       .subtract(1, "month")
       .format("MMMM YYYY")}</b><br /><br />${sessionsHtml}`;
 
