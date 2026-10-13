@@ -27,7 +27,7 @@ const managerCommissionReport = async (event, context) => {
   for (let i = 0; i < emails.length; i++) {
     const e = emails[i];
     await sendEmail(
-      `Average hours per client for the month of ${moment()
+      `Average Hours/Client, Month of ${moment()
         .subtract(1, "month")
         .format("MMMM YYYY")}`,
       e.email,

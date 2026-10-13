@@ -12,7 +12,7 @@ const root = `
 		<td style="border-bottom:1px solid black">Trainer</td>
 		<td style="border-bottom:1px solid black">Total Hours</td>
 		<td style="border-bottom:1px solid black">Active Clients</td>
-		<td style="border-bottom:1px solid black">Ave Hours/Client</td>
+		<td style="border-bottom:1px solid black">Avg Hours/Client</td>
 	</tr>
 `;
 
