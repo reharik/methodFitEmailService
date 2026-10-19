@@ -24,7 +24,7 @@ provider:
   name: aws
   runtime: nodejs22.x
   region: us-east-2
-# you can overwrite defaults here
+  # you can overwrite defaults here
   stage: production
 #  region: us-east-1
 
@@ -50,9 +50,8 @@ provider:
 package:
   include:
     - src/**
-#  exclude:
-#    - exclude-me.js
-#    - exclude-me-dir/**
+  exclude:
+    - tests/**
 functions:
   dailyPaymentReport:
     handler: handler.dailyPaymentReport
@@ -62,6 +61,15 @@ functions:
     handler: handler.managerCommissionReport
   monthlyAbsenteeReport:
     handler: handler.monthlyAbsenteeReport
+  weeklyCadenceReport:
+    handler: handler.weeklyCadenceReport
+    timeout: 300
+    environment:
+      LLM_ENABLED: ${env:LLM_ENABLED, 'false'}
+      ANTHROPIC_API_KEY: ${env:ANTHROPIC_API_KEY, ''}
+    events:
+      # EventBridge cron is UTC: 11:00 UTC = 7am EDT, 6am EST
+      - schedule: cron(0 12 ? * MON *)
     #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details

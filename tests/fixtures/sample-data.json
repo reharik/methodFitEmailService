@@ -1,0 +1,34 @@
+{
+  "trainers": [
+    { "trainerId": 32, "clients": 14, "onPace": 9, "slowed": 2, "early": 1, "drifting": 1, "stopped": 1, "movedToOtherTrainer": 0, "goneOlder": 2, "paceDeliveredPct": 81, "missedSessions": 19 },
+    { "trainerId": 41, "clients": 9, "onPace": 6, "slowed": 1, "early": 0, "drifting": 1, "stopped": 0, "movedToOtherTrainer": 1, "goneOlder": 0, "paceDeliveredPct": 88, "missedSessions": 7 },
+    { "trainerId": 57, "clients": 2, "onPace": 0, "slowed": 0, "early": 0, "drifting": 0, "stopped": 0, "movedToOtherTrainer": 0, "goneOlder": 0, "paceDeliveredPct": null, "missedSessions": 0 }
+  ],
+  "clients": [
+    { "trainerId": 32, "clientId": 12138, "status": "Stopped", "cadence": 2, "usualPerWeek": 2.11, "recentPerWeek": 0, "last3Weeks": 0, "paceDeliveredPct": 0, "missedSessions": 16.9, "daysSinceLast": 63, "typicalGapDays": 3, "sessionsWithOtherTrainers": 0, "unusedCredits": 4 },
+    { "trainerId": 32, "clientId": 12201, "status": "Drifting", "cadence": 1.5, "usualPerWeek": 1.44, "recentPerWeek": 0.63, "last3Weeks": 0.33, "paceDeliveredPct": 44, "missedSessions": 6.5, "daysSinceLast": 14, "typicalGapDays": 5, "sessionsWithOtherTrainers": 0, "unusedCredits": 0 },
+    { "trainerId": 32, "clientId": 12377, "status": "Early", "cadence": 1, "usualPerWeek": 1.06, "recentPerWeek": 0.88, "last3Weeks": 0, "paceDeliveredPct": 83, "missedSessions": 2.2, "daysSinceLast": 21, "typicalGapDays": 7, "sessionsWithOtherTrainers": 0, "unusedCredits": 1 },
+    { "trainerId": 41, "clientId": 13002, "status": "Moved", "cadence": 2, "usualPerWeek": 2, "recentPerWeek": 0, "last3Weeks": 0, "paceDeliveredPct": 0, "missedSessions": 16, "daysSinceLast": null, "typicalGapDays": 4, "sessionsWithOtherTrainers": 14, "unusedCredits": 0 },
+    { "trainerId": 41, "clientId": 13050, "status": "Off cadence", "cadence": 1, "usualPerWeek": 1.17, "recentPerWeek": 0.75, "last3Weeks": 0.67, "paceDeliveredPct": 64, "missedSessions": 3.4, "daysSinceLast": 0, "typicalGapDays": 6, "sessionsWithOtherTrainers": 0, "unusedCredits": 0 }
+  ],
+  "series": [
+    { "TrainerId": 32, "ClientId": 12138, "Cadence": 2, "WeekNo": 1, "WeekStart": "2026-10-13T00:00:00.000Z", "Sessions": 0 },
+    { "TrainerId": 32, "ClientId": 12138, "Cadence": 2, "WeekNo": 2, "WeekStart": "2026-10-06T00:00:00.000Z", "Sessions": 0 }
+  ],
+  "trainerWeekly": [
+    { "TrainerId": 32, "WeekNo": 1, "WeekStart": "2026-10-13T00:00:00.000Z", "Actual": 21, "Expected": 24.5, "Closed": 0 },
+    { "TrainerId": 41, "WeekNo": 1, "WeekStart": "2026-10-13T00:00:00.000Z", "Actual": 15, "Expected": 16, "Closed": 0 }
+  ],
+  "trainerNames": [
+    { "trainerId": 32, "firstName": "Dana", "lastName": "Okafor" },
+    { "trainerId": 41, "firstName": "Sean", "lastName": "O'Rourke" },
+    { "trainerId": 57, "firstName": "Priya", "lastName": null }
+  ],
+  "clientNames": [
+    { "clientId": 12138, "firstName": "Maria", "lastName": "Reyes" },
+    { "clientId": 12201, "firstName": "Tom", "lastName": "Becker & Sons" },
+    { "clientId": 12377, "firstName": "Lena", "lastName": "Hughes" },
+    { "clientId": 13002, "firstName": "Ravi", "lastName": "Menon" },
+    { "clientId": 13050, "firstName": "Jo", "lastName": "Whitaker" }
+  ]
+}

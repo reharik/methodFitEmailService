@@ -10,35 +10,44 @@ const dailyPaymentReport = require("./src/dailyPaymentReport/dailyPaymentReport"
 const weeklyAbsenteeReport = require("./src/weeklyAbsenteeReport/weeklyAbsenteeReport");
 const managerCommissionReport = require("./src/managerCommissionReport/managerCommissionReport");
 const monthlyAbsenteeReport = require("./src/monthlyAbsenteeReport/monthlyAbsenteeReport");
+const weeklyCadenceReport = require("./src/weeklyCadenceReport/weeklyCadenceReport");
 
 module.exports.dailyPaymentReport = async (event, context) => {
-	await dailyPaymentReport(event, context);
-	return {
-		statusCode: 200,
-		body: "Success",
-	};
+  await dailyPaymentReport(event, context);
+  return {
+    statusCode: 200,
+    body: "Success",
+  };
 };
 
 module.exports.weeklyAbsenteeReport = async (event, context) => {
-	await weeklyAbsenteeReport(event, context);
-	return {
-		statusCode: 200,
-		body: "Success",
-	};
+  await weeklyAbsenteeReport(event, context);
+  return {
+    statusCode: 200,
+    body: "Success",
+  };
 };
 
 module.exports.managerCommissionReport = async (event, context) => {
-	await managerCommissionReport(event, context);
-	return {
-		statusCode: 200,
-		body: "Success",
-	};
+  await managerCommissionReport(event, context);
+  return {
+    statusCode: 200,
+    body: "Success",
+  };
 };
 
 module.exports.monthlyAbsenteeReport = async (event, context) => {
-	await monthlyAbsenteeReport(event, context);
-	return {
-		statusCode: 200,
-		body: "Success",
-	};
+  await monthlyAbsenteeReport(event, context);
+  return {
+    statusCode: 200,
+    body: "Success",
+  };
+};
+
+module.exports.weeklyCadenceReport = async (event, context) => {
+  await weeklyCadenceReport(event, context);
+  return {
+    statusCode: 200,
+    body: "Success",
+  };
 };
